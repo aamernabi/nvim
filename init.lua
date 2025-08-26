@@ -835,8 +835,9 @@ require('lazy').setup({
         'ruff', -- python linter and code formatter
         'pyright', -- LSP for python
         'taplo', -- LSP for toml (e.g., for pyproject.toml files)
-        'prettier',
-        'eslint_d',
+        -- 'prettier',
+        'prettierd',
+        'eslint-lsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -927,7 +928,10 @@ require('lazy').setup({
         end,
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
