@@ -245,6 +245,15 @@ vim.keymap.set('n', '<leader>ti', function()
   print('inlay hints ' .. (vim.lsp.inlay_hint.is_enabled() and 'enabled' or 'disabled'))
 end, { desc = 'Toggle inlay hints' })
 
+-- jumping comment
+vim.keymap.set('n', ']t', function()
+  require('todo-comments').jump_next()
+end, { desc = 'Next todo comment' })
+
+vim.keymap.set('n', '[t', function()
+  require('todo-comments').jump_prev()
+end, { desc = 'Previous todo comment' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
