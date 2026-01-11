@@ -854,13 +854,21 @@ require('lazy').setup({
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
+          -- function(server_name)
+          --   local server = servers[server_name] or {}
+          --   -- This handles overriding only values explicitly passed
+          --   -- by the server configuration above. Useful when disabling
+          --   -- certain features of an LSP (for example, turning off formatting for ts_ls)
+          --   server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          --   require('lspconfig')[server_name].setup(server)
+          -- end,
           function(server_name)
-            local server = servers[server_name] or {}
+            local config = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+            vim.lsp.config(server_name, config)
           end,
         },
       }
@@ -871,24 +879,27 @@ require('lazy').setup({
       lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 
       -- setup pyright with completion capabilities
-      require('lspconfig').pyright.setup {
+      -- require('lspconfig').pyright.setup {
+      vim.lsp.config('pyright', {
         capabilities = lspCapabilities,
-      }
+      })
 
       -- setup taplo with completion capabilities
-      require('lspconfig').taplo.setup {
+      -- require('lspconfig').taplo.setup {
+      vim.lsp.config('taplo', {
         capabilities = lspCapabilities,
-      }
+      })
 
       -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
       -- were a LSP. In practice, ruff only provides linter-like diagnostics
       -- and some code actions, and is not a full LSP yet.
-      require('lspconfig').ruff.setup {
+      -- require('lspconfig').ruff.setup {
+      vim.lsp.config('ruff', {
         -- disable ruff as hover provider to avoid conflicts with pyright
         on_attach = function(client)
           client.server_capabilities.hoverProvider = false
         end,
-      }
+      })
     end,
   },
 
