@@ -795,7 +795,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        -- gopls = {},
         kotlin_lsp = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -840,7 +840,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'delve',
+        -- 'delve', -- for golang
         'ruff', -- python linter and code formatter
         'pyright', -- LSP for python
         'taplo', -- LSP for toml (e.g., for pyproject.toml files)
@@ -935,7 +935,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'gofmt' },
+        -- go = { 'gofmt' },
         kotlin = { 'ktlint' },
         -- Conform can also run multiple formatters sequentially
         -- python = { 'isort', 'black' },
@@ -1197,7 +1197,7 @@ require('lazy').setup({
         'vim',
         'vimdoc',
         'python',
-        'go',
+        -- 'go',
         'java',
         'kotlin',
         'javascript',
